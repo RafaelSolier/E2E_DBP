@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 @Entity
 @NoArgsConstructor
 public class Ride {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +24,7 @@ public class Ride {
     private ZonedDateTime arrival_date;
     private ZonedDateTime departure_date;
 
+    // Falta setear como foreign keys
     private Long destination_coordinates_id;
     private Long origin_coordinates_id;
 

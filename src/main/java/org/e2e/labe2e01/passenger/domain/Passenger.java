@@ -22,6 +22,7 @@ public class Passenger extends User {
     @JoinColumn(name = "id")
     private User user;
 
+
     @OneToMany(mappedBy = "passenger",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
