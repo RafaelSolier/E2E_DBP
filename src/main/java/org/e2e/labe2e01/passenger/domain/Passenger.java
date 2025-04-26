@@ -2,9 +2,7 @@ package org.e2e.labe2e01.passenger.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
 import org.e2e.labe2e01.user.domain.User;
@@ -14,9 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Passenger.class)
 public class Passenger extends User {
+
+    @OneToOne
+    @MapsId  // Indica que el id de Passenger es el mismo id de User
+    @JoinColumn(name = "id")
+    private User user;
+
     @OneToMany(mappedBy = "passenger",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
