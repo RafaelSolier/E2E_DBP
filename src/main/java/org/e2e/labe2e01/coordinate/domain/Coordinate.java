@@ -21,4 +21,5 @@ public class Coordinate {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+    //Este comentario tiene como obejtivo verificar la subida de cambios en el repositorio
 }
