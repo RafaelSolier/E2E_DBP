@@ -1,28 +1,25 @@
 package org.e2e.labe2e01.user.domain;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
-
 import java.time.ZonedDateTime;
 @Entity
 @Data
-//
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@RequiredArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "avg_rating", nullable = false)
-    private Double avgRating = 0.0;
+    private Double avg_rating = 0.0;
 
-    @Enumerated(EnumType.ORDINAL)
+    //@Enumerated(EnumType.ORDINAL)
     @Column(name = "role", nullable = false)
     private Role role;
 
@@ -53,6 +50,4 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coordinate_id")
     private Coordinate coordinate;
-
-
 }
