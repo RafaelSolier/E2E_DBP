@@ -30,4 +30,3 @@ public class UserLocation {
         this.id = new PassengerCoordinateId(passenger.getId(), coordinate.getId());
     }
 }
-
