@@ -32,4 +32,3 @@ public class PassengerCoordinateId implements Serializable {
         return Objects.hash(passengerId, coordinateId);
     }
 }
-
