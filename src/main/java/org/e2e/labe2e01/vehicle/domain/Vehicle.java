@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -18,14 +19,17 @@ public class Vehicle {
     private int capacity;
 
     @Column(nullable = false)
-    private int fabrication_year;
+    private int fabricationYear;
 
     @Column(nullable = false)
     private String brand;
 
     @Column(nullable = false, unique = true)
-    private String license_plate;
+    private String licensePlate;
 
     @Column(nullable = false)
     private String model;
+
+
+
 }
