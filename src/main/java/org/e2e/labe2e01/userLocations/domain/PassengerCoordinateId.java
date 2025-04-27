@@ -1,10 +1,7 @@
 package org.e2e.labe2e01.userLocations.domain;
 
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,6 +12,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PassengerCoordinateId implements Serializable {
+    private Long coordinateId;
+    private Long passengerId;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

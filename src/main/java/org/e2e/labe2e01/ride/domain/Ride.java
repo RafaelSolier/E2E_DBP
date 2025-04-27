@@ -1,6 +1,7 @@
 package org.e2e.labe2e01.ride.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -9,6 +10,8 @@ import java.time.ZonedDateTime;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Ride {
 
     @Id

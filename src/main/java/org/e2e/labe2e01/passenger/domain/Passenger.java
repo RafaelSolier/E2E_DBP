@@ -3,6 +3,8 @@ package org.e2e.labe2e01.passenger.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
 import org.e2e.labe2e01.user.domain.User;
@@ -11,9 +13,11 @@ import org.e2e.labe2e01.userLocations.domain.UserLocation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 @Entity
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name="passenger")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Passenger.class)
 public class Passenger extends User {
 
