@@ -22,10 +22,10 @@ public class Coordinate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="latitude",nullable = false)
     private Double latitude;
 
-    @Column(nullable = false)
+    @Column(name="longitude",nullable = false)
     private Double longitude;
 
     @OneToMany(mappedBy = "coordinate",
