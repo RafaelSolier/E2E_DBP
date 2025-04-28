@@ -1,5 +1,7 @@
 package org.e2e.labe2e01.userLocations.domain;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
 import lombok.*;
 
@@ -7,8 +9,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-@Getter
-@Setter
+//@Getter
+//@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PassengerCoordinateId implements Serializable {

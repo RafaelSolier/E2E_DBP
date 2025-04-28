@@ -31,9 +31,15 @@ public class UserLocation {
     private String description;
 
     public UserLocation(Passenger passenger, Coordinate coordinate, String description) {
+        this.id = new PassengerCoordinateId(passenger.getId(), coordinate.getId()); // Inicializar ID compuesto
         this.passenger = passenger;
         this.coordinate = coordinate;
         this.description = description;
     }
+//    public UserLocation(Passenger passenger, Coordinate coordinate, String description) {
+//        this.passenger = passenger;
+//        this.coordinate = coordinate;
+//        this.description = description;
+//    }
 
 }
