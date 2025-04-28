@@ -6,7 +6,7 @@ import org.e2e.labe2e01.user.infrastructure.BaseUserRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-//@Transactional
+@Transactional
 public interface PassengerRepository extends BaseUserRepository<Passenger> {
 
 }

@@ -27,25 +27,25 @@ public class User {
     private Integer trips = 0;
 
     @Column(name = "created_at", nullable = false)
-    private ZonedDateTime created_at;
+    private ZonedDateTime createdAt;
 
     @Column(name = "updated_at")
-    private ZonedDateTime updated_at;
+    private ZonedDateTime updatedAt;
 
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
     @Column(name = "first_name", nullable = false, length = 255)
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 255)
-    private String last_name;
+    private String lastName;
 
     @Column(nullable = false, length = 255)
     private String password;
 
     @Column(name = "phone_number", nullable = false, unique = true, length = 255)
-    private String phone_number;
+    private String phoneNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coordinate_id")
