@@ -29,6 +29,7 @@ public class UserLocation {
     private Coordinate coordinate;
     @Column(nullable = false)
     private String description;
+
     public UserLocation(Passenger passenger, Coordinate coordinate, String description) {
         this.passenger = passenger;
         this.coordinate = coordinate;
