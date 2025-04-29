@@ -3,10 +3,7 @@ package org.e2e.labe2e01.passenger.domain;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
-import org.e2e.labe2e01.coordinate.infrastructure.CoordinateRepository;
 import org.e2e.labe2e01.passenger.infrastructure.PassengerRepository;
-import org.e2e.labe2e01.userLocations.domain.PassengerCoordinateId;
-import org.e2e.labe2e01.userLocations.domain.UserLocation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +22,9 @@ public class PassengerService {
     }
 
     public Passenger updatePassenger(Long id, String description, Coordinate coordinate) {
-        Passenger passenger = passengerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Passenger not found"));
+        Passenger passenger = passengerRepository.findById(id).get();
         passenger.addPlace(coordinate, description);
-        passenger = passengerRepository.save(passenger);
+
         return passenger;
     }
 
@@ -40,5 +37,4 @@ public class PassengerService {
         Passenger passenger = passengerRepository.findById(id).get();
         passenger.removePlace(coordinateId);
     }
-
 }
