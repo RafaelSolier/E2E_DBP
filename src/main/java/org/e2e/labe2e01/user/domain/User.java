@@ -1,4 +1,6 @@
 package org.e2e.labe2e01.user.domain;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +13,8 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +23,7 @@ public class User {
     @Column(name = "avg_rating", nullable = false)
     private Double avg_rating = 0.0;
 
-    //@Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "role", nullable = false)
     private Role role;
 

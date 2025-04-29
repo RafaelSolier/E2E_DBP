@@ -44,4 +44,5 @@ public class PassengerController {
         passengerService.deletePassengerByPassengerId(id, coordinateId);
         return ResponseEntity.noContent().build();
     }
+
 }

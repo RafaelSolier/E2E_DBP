@@ -17,7 +17,6 @@ import org.e2e.labe2e01.passenger.domain.Passenger;
 public class UserLocation {
     @EmbeddedId
     private PassengerCoordinateId id;
-
     @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("passengerId")
@@ -35,6 +34,7 @@ public class UserLocation {
         this.coordinate = coordinate;
         this.description = description;
     }
+
 //    public UserLocation(Passenger passenger, Coordinate coordinate, String description) {
 //        this.passenger = passenger;
 //        this.coordinate = coordinate;
