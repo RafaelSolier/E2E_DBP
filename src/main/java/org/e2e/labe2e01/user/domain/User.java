@@ -1,57 +1,53 @@
 package org.e2e.labe2e01.user.domain;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
+
 import java.time.ZonedDateTime;
+
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
-
+@Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "avg_rating", nullable = false)
-    private Double avg_rating = 0.0;
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false, unique = false)
+    private String phoneNumber;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "role", nullable = false)
+    @Column(nullable = false)
     private Role role;
 
     @Column(nullable = false)
     private Integer trips = 0;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(nullable = false)
+    private Double avgRating = 0.0;
+
+    @Column(nullable = false)
     private ZonedDateTime createdAt;
 
-    @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
 
-    @Column(nullable = false, unique = true, length = 255)
-    private String email;
-
-    @Column(name = "first_name", nullable = false, length = 255)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 255)
-    private String lastName;
-
-    @Column(nullable = false, length = 255)
-    private String password;
-
-    @Column(name = "phone_number", nullable = false, unique = true, length = 255)
-    private String phoneNumber;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "coordinate_id")
     private Coordinate coordinate;
 }

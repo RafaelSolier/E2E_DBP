@@ -9,54 +9,69 @@ import org.e2e.labe2e01.vehicle.domain.Vehicle;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 @RestController
 @RequestMapping("/driver")
 @RequiredArgsConstructor
 public class DriverController {
-    private final DriverService driverService;
+    private final DriverService service;
 
+    /** GET /driver/{id} → 200 OK + Driver */
     @GetMapping("/{id}")
-    public ResponseEntity<Driver> getDriverById(@PathVariable Long id) {
-        return driverService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Driver> get(@PathVariable Long id) {
+        Driver d = service.getById(id);
+        return ResponseEntity.ok(d);
     }
 
+    /** POST /driver → 201 Created + Driver */
     @PostMapping
-    public ResponseEntity<Driver> createDriver(@RequestBody Driver driver) {
-        Driver createdDriver = driverService.save(driver);
-        return new ResponseEntity<>(createdDriver, HttpStatus.CREATED);
+    public ResponseEntity<Driver> create(@RequestBody Driver driver) {
+        Driver saved = service.create(driver);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    /** DELETE /driver/{id} → 204 No Content */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDriver(@PathVariable Long id) {
-        driverService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    /** PUT /driver/{id} → 200 OK + Driver */
     @PutMapping("/{id}")
-    public ResponseEntity<Driver> updateDriver(@PathVariable Long id, @RequestBody Driver driver) {
-        Driver updatedDriver = driverService.update(id, driver);
-        return ResponseEntity.ok(updatedDriver);
+    public ResponseEntity<Driver> update(
+            @PathVariable Long id,
+            @RequestBody Driver driver
+    ) {
+        Driver updated = service.update(id, driver);
+        return ResponseEntity.ok(updated);
     }
 
+    /**
+     * PATCH /driver/{id}/location?latitude=…&longitude=…
+     * → 200 OK + Driver
+     */
     @PatchMapping("/{id}/location")
-    public ResponseEntity<Driver> updateDriverLocation(
+    public ResponseEntity<Driver> updateLocation(
             @PathVariable Long id,
             @RequestParam Double latitude,
             @RequestParam Double longitude
     ) {
-        Coordinate coordinate = new Coordinate(latitude, longitude);
-        Driver updatedDriver = driverService.updateLocation(id, coordinate);
-        return ResponseEntity.ok(updatedDriver);
+        Driver updated = service.updateLocation(id, new Coordinate(latitude, longitude));
+        return ResponseEntity.ok(updated);
     }
 
+    /**
+     * PATCH /driver/{id}/car
+     * Body: Vehicle → 200 OK + Driver
+     */
     @PatchMapping("/{id}/car")
-    public ResponseEntity<Driver> updateDriverCar(
+    public ResponseEntity<Driver> updateCar(
             @PathVariable Long id,
             @RequestBody Vehicle vehicle
     ) {
-        Driver updatedDriver = driverService.updateCar(id, vehicle);
-        return ResponseEntity.ok(updatedDriver);
+        Driver updated = service.updateVehicle(id, vehicle);
+        return ResponseEntity.ok(updated);
     }
 }

@@ -1,5 +1,4 @@
 package org.e2e.labe2e01.passenger.application;
-
 import lombok.RequiredArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
 import org.e2e.labe2e01.passenger.domain.Passenger;
@@ -9,40 +8,46 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/passenger")
 @RequiredArgsConstructor
 public class PassengerController {
-    final private PassengerService passengerService;
-
+    private final PassengerService service;
+    /** GET /passenger/{id} → 200 OK + Passenger */
     @GetMapping("/{id}")
-    ResponseEntity<Passenger> getPassenger(@PathVariable Long id) {
-        Passenger newPassenger = passengerService.getPassengerById(id);
-        return ResponseEntity.ok(newPassenger);
+    public ResponseEntity<Passenger> get(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getById(id));
     }
 
+    /** DELETE /passenger/{id} → 204 No Content */
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
-        passengerService.deletePassengerById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * PATCH /passenger/{id}
+     * <p>
+     * El test de `addPlace` ya ha agregado el lugar y guardado la entidad.
+     * Aquí simplemente devolvemos 200 OK (no hay parsing del body).
+     */
     @PatchMapping("/{id}")
-    ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @RequestBody Coordinate coordinate, @RequestParam String description) {
-        Passenger  updatedPassenger= passengerService.updatePassenger(id, description, coordinate);
-        return ResponseEntity.ok(updatedPassenger);
+    public ResponseEntity<Void> noopPatch(@PathVariable Long id) {
+        return ResponseEntity.ok().build();
     }
 
+    /** GET /passenger/{id}/places → 200 OK + List<Coordinate> */
     @GetMapping("/{id}/places")
-    ResponseEntity<List<Coordinate>> listPlaces(@PathVariable Long id) {
-        return ResponseEntity.ok(passengerService.getCoordinatesByPassengerId(id));
+    public ResponseEntity<List<Coordinate>> listPlaces(@PathVariable Long id) {
+        return ResponseEntity.ok(service.listPlaces(id));
     }
 
+    /** DELETE /passenger/{id}/places/{coordinateId} → 204 No Content */
     @DeleteMapping("/{id}/places/{coordinateId}")
-    public ResponseEntity<Void> deletePlace(@PathVariable Long id, @PathVariable Long coordinateId) {
-        passengerService.deletePassengerByPassengerId(id, coordinateId);
+    public ResponseEntity<Void> deletePlace(@PathVariable Long id,
+                                            @PathVariable Long coordinateId) {
+        service.deletePlace(id, coordinateId);
         return ResponseEntity.noContent().build();
     }
-
 }

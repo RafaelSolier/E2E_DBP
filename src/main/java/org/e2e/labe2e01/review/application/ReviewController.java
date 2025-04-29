@@ -17,10 +17,18 @@ import java.util.Map;
 @RequestMapping("/review")
 @RequiredArgsConstructor
 public class ReviewController {
-    private final ReviewService reviewService;
+    private final ReviewService service;
+    // POST /review → 201 Created + body Review
+    @PostMapping
+    public ResponseEntity<Review> create(@RequestBody Review review) {
+        Review saved = service.create(review);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
-        reviewService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 

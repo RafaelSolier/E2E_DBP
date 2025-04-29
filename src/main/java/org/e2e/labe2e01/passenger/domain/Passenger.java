@@ -3,7 +3,6 @@ package org.e2e.labe2e01.passenger.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
@@ -14,19 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 @Entity
+@Table(name = "passenger")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name="passenger")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Passenger.class)
+@PrimaryKeyJoinColumn(name = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Passenger extends User {
-
-    @OneToOne
-    @MapsId  // Indica que el id de Passenger es el mismo id de User
-    @JoinColumn(name = "id")
-    private User user;
-
-
     @OneToMany(mappedBy = "passenger",
             cascade = CascadeType.ALL,
             orphanRemoval = true,

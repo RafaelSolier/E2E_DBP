@@ -3,7 +3,6 @@ package org.e2e.labe2e01.userLocations.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
@@ -12,7 +11,6 @@ import org.e2e.labe2e01.passenger.domain.Passenger;
 @Table(name = "user_location")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserLocation {
     @EmbeddedId
@@ -28,17 +26,20 @@ public class UserLocation {
     private Coordinate coordinate;
     @Column(nullable = false)
     private String description;
+
     public UserLocation(Passenger passenger, Coordinate coordinate, String description) {
-        this.id = new PassengerCoordinateId(passenger.getId(), coordinate.getId()); // Inicializar ID compuesto
         this.passenger = passenger;
         this.coordinate = coordinate;
         this.description = description;
+        this.id = new PassengerCoordinateId(passenger.getId(), coordinate.getId());
+    }
+    public Double getLatitude() {
+        return coordinate.getLatitude();
     }
 
-//    public UserLocation(Passenger passenger, Coordinate coordinate, String description) {
-//        this.passenger = passenger;
-//        this.coordinate = coordinate;
-//        this.description = description;
-//    }
+    public Double getLongitude() {
+        return coordinate.getLongitude();
+    }
 
 }
+

@@ -11,56 +11,34 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class DriverService {
-    private final DriverRepository driverRepository;
+    private final DriverRepository repo;
 
-    public Optional<Driver> findById(Long id) {
-        return driverRepository.findById(id);
+    public Driver create(Driver d) { return repo.save(d); }
+    public List<Driver> list() { return repo.findAll(); }
+    public Driver getById(Long id) { return repo.findById(id).orElseThrow(); }
+
+    public void delete(Long id) { repo.deleteById(id); }
+
+    public Driver update(Long id, Driver driver) {
+        driver.setId(id);
+        return repo.save(driver);
     }
 
-    public Driver save(Driver driver) {
-        return driverRepository.save(driver);
+    public Driver updateLocation(Long id, Coordinate coord) {
+        Driver d = repo.findById(id).orElseThrow();
+        // si quieres persistir a tabla coordinate, usa coordinateRepo.save(coord);
+        d.setCoordinate(coord);
+        return repo.save(d);
     }
 
-
-    public void deleteById(Long id) {
-        driverRepository.deleteById(id);
-    }
-
-    public Driver updateLocation(Long id, Coordinate coordinate) {
-        Driver driver = driverRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Driver not found"));
-
-        if (driver.getUser() == null) {
-            driver.setUser(driver); // Asignar a sí mismo como User si no existe
-        }
-
-        driver.getUser().setCoordinate(coordinate);
-        driver.setCoordinate(coordinate); // ⚡ Aquí el truco: copiar la ubicación también en el Driver para que pase el test
-
-        return driverRepository.save(driver);
-    }
-
-    public Driver updateCar(Long id, Vehicle vehicle) {
-        return driverRepository.findById(id)
-                .map(driver -> {
-                    driver.setVehicle(vehicle);
-                    return driverRepository.save(driver);
-                })
-                .orElseThrow(() -> new RuntimeException("Driver not found with id: " + id));
-    }
-    public Driver update(Long id, Driver updatedDriver) {
-        return driverRepository.findById(id)
-                .map(driver -> {
-                    driver.setCategory(updatedDriver.getCategory());
-                    driver.setVehicle(updatedDriver.getVehicle());
-                    return driverRepository.save(driver);
-                })
-                .orElseThrow(() -> new RuntimeException("Driver not found with id: " + id));
+    public Driver updateVehicle(Long id, Vehicle v) {
+        Driver d = repo.findById(id).orElseThrow();
+        d.setVehicle(v);
+        return repo.save(d);
     }
 
 }
