@@ -4,22 +4,21 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
+//@Table(name = "vehicle")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private int capacity;
+    private Integer capacity;
 
     @Column(nullable = false)
-    private int fabricationYear;
+    private Integer fabricationYear;
 
     @Column(nullable = false)
     private String brand;
@@ -29,7 +28,5 @@ public class Vehicle {
 
     @Column(nullable = false)
     private String model;
-
-
 
 }

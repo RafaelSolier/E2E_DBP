@@ -9,43 +9,46 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 @RestController
 @RequestMapping("/ride")
 @RequiredArgsConstructor
 public class RideController {
-    private final RideService rideService;
+    private final RideService service;
 
+    // POST /ride
     @PostMapping
-    public ResponseEntity<Ride> createRide(@RequestBody Ride ride) {
-        Ride createdRide = rideService.save(ride);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdRide);
+    public ResponseEntity<Ride> book(@RequestBody Ride ride) {
+        Ride saved = service.create(ride);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    // PATCH /ride/{rideId}/assign/{driverId}
     @PatchMapping("/{rideId}/assign/{driverId}")
-    public ResponseEntity<Ride> assignDriver(@PathVariable Long rideId, @PathVariable Long driverId) {
-        Ride ride = rideService.assignDriver(rideId, driverId);
-        return ResponseEntity.ok(ride);
+    public ResponseEntity<Ride> accept(@PathVariable Long rideId,
+                                       @PathVariable Long driverId) {
+        Ride updated = service.assignDriver(rideId, driverId);
+        return ResponseEntity.ok(updated);
     }
 
+    // DELETE /ride/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRide(@PathVariable Long id) {
-        rideService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    // GET /ride/{passengerId}?page=…&size=…
     @GetMapping("/{passengerId}")
-    public ResponseEntity<Page<Ride>> getRidesByPassenger(@PathVariable Long passengerId, Pageable pageable) {
-        Page<Ride> rides = rideService.findByPassengerId(passengerId, pageable);
-        return ResponseEntity.ok(rides);
+    public ResponseEntity<Page<Ride>> listByUser(@PathVariable Long passengerId,
+                                                 Pageable pageable) {
+        Page<Ride> page = service.listByUser(passengerId, pageable);
+        return ResponseEntity.ok(page);
     }
 
+    // PATCH /ride/{id}  (cancel)
     @PatchMapping("/{id}")
-    public ResponseEntity<Ride> updateRide(@PathVariable Long id, @RequestBody Ride rideData) {
-        Ride updatedRide = rideService.update(id, rideData);
-        return ResponseEntity.ok(updatedRide);
+    public ResponseEntity<Ride> cancel(@PathVariable Long id) {
+        Ride canceled = service.cancel(id);
+        return ResponseEntity.ok(canceled);
     }
-
 }

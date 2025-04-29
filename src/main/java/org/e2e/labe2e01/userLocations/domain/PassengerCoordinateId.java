@@ -1,17 +1,17 @@
 package org.e2e.labe2e01.userLocations.domain;
 
-import jakarta.persistence.Access;
-import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-//@Getter
-//@Setter
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PassengerCoordinateId implements Serializable {
@@ -34,3 +34,4 @@ public class PassengerCoordinateId implements Serializable {
         return Objects.hash(passengerId, coordinateId);
     }
 }
+

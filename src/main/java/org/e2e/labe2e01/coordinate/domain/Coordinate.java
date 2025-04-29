@@ -12,25 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "coordinate")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
 public class Coordinate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="latitude",nullable = false)
+    @Column(nullable = false)
     private Double latitude;
 
-    @Column(name="longitude",nullable = false)
+    @Column(nullable = false)
     private Double longitude;
 
-    @OneToMany(mappedBy = "coordinate",
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "coordinate", orphanRemoval = true)
     private List<UserLocation> passengers = new ArrayList<>();
 
     public Coordinate(Double latitude, Double longitude) {
