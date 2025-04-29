@@ -1,11 +1,15 @@
 package org.e2e.labe2e01.driver.domain;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
 import org.e2e.labe2e01.driver.infrastructure.DriverRepository;
+import org.e2e.labe2e01.user.domain.Role;
+import org.e2e.labe2e01.user.domain.User;
 import org.e2e.labe2e01.vehicle.domain.Vehicle;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -36,4 +40,5 @@ public class DriverService {
         d.setVehicle(v);
         return repo.save(d);
     }
+
 }
