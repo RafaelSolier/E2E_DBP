@@ -46,11 +46,11 @@ public class RideController {
         return ResponseEntity.ok(page);
     }
 
+
     // PATCH /ride/{id}  (cancel)
     @PatchMapping("/{id}")
     public ResponseEntity<Ride> cancel(@PathVariable Long id) {
         Ride canceled = service.cancel(id);
         return ResponseEntity.ok(canceled);
     }
-
 }

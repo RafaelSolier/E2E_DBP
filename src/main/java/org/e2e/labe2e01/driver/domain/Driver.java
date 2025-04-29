@@ -13,7 +13,6 @@ import org.e2e.labe2e01.vehicle.domain.Vehicle;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "id")
 public class Driver extends User {
-
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
 

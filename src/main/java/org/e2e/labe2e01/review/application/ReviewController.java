@@ -25,7 +25,6 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);

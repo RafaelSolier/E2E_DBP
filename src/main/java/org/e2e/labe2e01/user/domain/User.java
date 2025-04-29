@@ -1,4 +1,5 @@
 package org.e2e.labe2e01.user.domain;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
