@@ -1,10 +1,12 @@
 package org.e2e.labe2e01.review.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import org.e2e.labe2e01.coordinate.domain.Coordinate;
 import org.e2e.labe2e01.ride.domain.Ride;
 import org.e2e.labe2e01.user.domain.User;
 
@@ -13,6 +15,7 @@ import org.e2e.labe2e01.user.domain.User;
 @Data
 @Entity
 @Table(name = "review")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Review {
 
     @Id
@@ -34,6 +37,8 @@ public class Review {
 
     @Column(nullable = false, length = 255)
     private String comment;
+
+
 
 }
 
