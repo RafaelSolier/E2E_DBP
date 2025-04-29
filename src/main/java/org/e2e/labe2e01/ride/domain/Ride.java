@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.e2e.labe2e01.coordinate.domain.Coordinate;
 import org.e2e.labe2e01.driver.domain.Driver;
 import org.e2e.labe2e01.passenger.domain.Passenger;
+import org.e2e.labe2e01.review.domain.Review;
 
 import java.time.ZonedDateTime;
 

@@ -1,9 +1,11 @@
 package org.e2e.labe2e01.review.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import org.e2e.labe2e01.coordinate.domain.Coordinate;
 import org.e2e.labe2e01.ride.domain.Ride;
 import org.e2e.labe2e01.user.domain.User;
 
@@ -11,6 +13,7 @@ import org.e2e.labe2e01.user.domain.User;
 @Table(name = "review")
 @Data
 @NoArgsConstructor
+
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
